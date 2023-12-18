@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import video from './boring.mp4';
 
@@ -9,15 +9,14 @@ function App() {
   const[myActivity, setMyActivity] = useState("");
   
   
-  useEffect(() => {
+ 
     const getActivity = async() => {
       const response = await fetch(`http://www.boredapi.com/api/activity/`);
       const data = await response.json();
       console.log (data.activity);
       setMyActivity(data.activity)
     }
-    getActivity()
-  }, [])
+    
 
   
  
@@ -34,13 +33,13 @@ function App() {
     </div>
 
     <div className='container'>
-    <button onClick={()=>setMyActivity()}>
+    <button onClick={getActivity}>
     <img src="https://img.icons8.com/?size=48&id=63261&format=png" alt="icon"/>
     </button>
     </div>
 
     <div className='container'>
-    <p>{myActivity}</p>
+    <p className='response'>{myActivity}</p>
     </div>
     
     </div>
