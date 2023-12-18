@@ -1,23 +1,48 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import video from './boring.mp4';
+
+
 
 function App() {
+
+  const[myActivity, setMyActivity] = useState("");
+  
+  
+  useEffect(() => {
+    const getActivity = async() => {
+      const response = await fetch(`http://www.boredapi.com/api/activity/`);
+      const data = await response.json();
+      console.log (data.activity);
+      setMyActivity(data.activity)
+    }
+    getActivity()
+  }, [])
+
+  
+ 
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div className='container'>
+    <video autoPlay muted loop>
+      <source src={video} type="video/mp4"/>
+    </video>
+    <h1>Are you bored? Click here! Here are a few ideas for you! </h1>
+    </div>
+
+    <div className='container'>
+    <button onClick={()=>setMyActivity()}>
+    <img src="https://img.icons8.com/?size=48&id=63261&format=png" alt="icon"/>
+    </button>
+    </div>
+
+    <div className='container'>
+    <p>{myActivity}</p>
+    </div>
+    
     </div>
   );
 }
